@@ -30,4 +30,24 @@ public class Main {
 
         return maxLength;
     }
+
+    public boolean isPalindrome(String s) {
+        s = s.toLowerCase();
+
+        String filtered = "";
+
+        for (int i = 0; i < s.length(); i++) {
+            if ((s.charAt(i) >= '0' && s.charAt(i) <= '9') || (s.charAt(i) >= 'a' && s.charAt(i) <= 'z')) {
+                filtered += s.charAt(i);
+            }
+        }
+
+        for (int j = 0; j < filtered.length(); j++) {
+            if (filtered.charAt(j) != filtered.charAt(filtered.length() - 1 - j)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
