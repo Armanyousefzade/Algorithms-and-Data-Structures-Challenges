@@ -66,21 +66,21 @@ public class Main {
         List<List<Integer>> result = new ArrayList<>();
         Set<List<Integer>> resultSet = new HashSet<>();
 
-        for(int i=0; i<nums.length; i++){
-            int j= i+1;
-            int k= nums.length-1;
+        for (int i = 0; i < nums.length; i++) {
+            int j = i + 1;
+            int k = nums.length - 1;
 
-            while(j<k){
-                if(nums[i]+nums[j]+nums[k] < 0){
+            while (j < k) {
+                if (nums[i] + nums[j] + nums[k] < 0) {
                     j++;
-                } else if(nums[i]+nums[j]+nums[k] > 0){
+                } else if (nums[i] + nums[j] + nums[k] > 0) {
                     k--;
-                } else{
+                } else {
                     List<Integer> triple = new ArrayList<>();
                     triple.add(nums[i]);
                     triple.add(nums[j]);
                     triple.add(nums[k]);
-                    if(resultSet.add(triple)){
+                    if (resultSet.add(triple)) {
                         result.add(triple);
                     }
                     j++;
@@ -90,5 +90,35 @@ public class Main {
         }
 
         return result;
+    }
+
+    /**
+     * Calculates the maximum area formed by vertical lines and an array of heights.
+     * The area is determined by the width between two vertical lines (indices) and the minimum height among them.
+     * This method implements the two-pointer approach to optimize the computation.
+     *
+     * @param height An array of integers representing the heights of the vertical lines.
+     * @return The maximum area formed by the vertical lines.
+     */
+    public int maxArea(int[] height) {
+        int left = 0;
+        int right = height.length - 1;
+
+        int max = -1;
+
+        while (left < right) {
+            int storeAmount = (right - left) * Math.min(height[left], height[right]);
+            if (storeAmount > max) {
+                max = storeAmount;
+            }
+
+            if (height[left] <= height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return max;
     }
 }
