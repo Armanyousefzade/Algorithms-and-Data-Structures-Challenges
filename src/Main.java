@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Main {
@@ -49,5 +52,43 @@ public class Main {
         }
 
         return true;
+    }
+
+    /**
+     * Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
+     * such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+     *
+     * @param nums the integer array
+     * @return a list of triplets that satisfy the given conditions
+     */
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        Set<List<Integer>> resultSet = new HashSet<>();
+
+        for(int i=0; i<nums.length; i++){
+            int j= i+1;
+            int k= nums.length-1;
+
+            while(j<k){
+                if(nums[i]+nums[j]+nums[k] < 0){
+                    j++;
+                } else if(nums[i]+nums[j]+nums[k] > 0){
+                    k--;
+                } else{
+                    List<Integer> triple = new ArrayList<>();
+                    triple.add(nums[i]);
+                    triple.add(nums[j]);
+                    triple.add(nums[k]);
+                    if(resultSet.add(triple)){
+                        result.add(triple);
+                    }
+                    j++;
+                    k--;
+                }
+            }
+        }
+
+        return result;
     }
 }
