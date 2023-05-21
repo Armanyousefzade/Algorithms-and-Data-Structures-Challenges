@@ -121,4 +121,29 @@ public class Main {
 
         return max;
     }
+
+    /**
+     * Calculates the maximum profit that can be obtained from a given array of prices.
+     *
+     * @param prices an array of prices
+     * @return the maximum profit that can be obtained
+     */
+    public int maxProfit(int[] prices) {
+        int left = 0;
+        int right = left + 1;
+
+        int maxProfit = 0;
+
+        while (right < prices.length) {
+            if (prices[left] < prices[right]) {
+                maxProfit = Math.max(maxProfit, prices[right] - prices[left]);
+                right++;
+            } else {
+                left = right;
+                right++;
+            }
+        }
+
+        return maxProfit;
+    }
 }
