@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class Main {
@@ -145,5 +147,36 @@ public class Main {
         }
 
         return maxProfit;
+    }
+
+    /**
+     * Returns the length of the longest substring without repeating characters in the given string.
+     *
+     * @param s the input string
+     * @return the length of the longest substring without repeating characters
+     */
+    public int lengthOfLongestSubstring(String s) {
+        Map<Character, Integer> lastOccurance = new HashMap<>();
+
+        int left = 0;
+        int right = 0;
+
+        int maxLength = 0;
+
+        while (right < s.length()) {
+
+            if (lastOccurance.containsKey(s.charAt(right))) {
+                left = lastOccurance.get(s.charAt(right)) + 1;
+                right = left;
+                lastOccurance.clear();
+            } else {
+                lastOccurance.put(s.charAt(right), right);
+                right++;
+            }
+
+            maxLength = Math.max(maxLength, right - left);
+        }
+
+        return maxLength;
     }
 }
