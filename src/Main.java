@@ -179,4 +179,34 @@ public class Main {
 
         return maxLength;
     }
+
+    /**
+     * Calculates the maximum length of a substring with the same character in the given string 's' after replacing at most 'k' characters.
+     *
+     * @param s The input string.
+     * @param k The maximum number of characters that can be replaced.
+     * @return The maximum length of a substring after replacement.
+     */
+    public int characterReplacement(String s, int k) {
+        int left = 0;
+        int right = 0;
+        int maxLength = 0;
+
+        int maxCount = 0;
+        int[] counts = new int[26];
+
+        while (right < s.length()) {
+            maxCount = Math.max(maxCount, ++counts[s.charAt(right) - 'A']);
+
+            if (maxCount + k <= right - left) {
+                counts[s.charAt(left) - 'A']--;
+                left++;
+            }
+
+            maxLength = Math.max(maxLength, right - left + 1);
+            right++;
+        }
+
+        return maxLength;
+    }
 }
