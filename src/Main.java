@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
@@ -208,5 +209,37 @@ public class Main {
         }
 
         return maxLength;
+    }
+
+    /**
+     * Checks if a string containing parentheses, brackets, and braces is valid.
+     *
+     * @param s the string to be checked
+     * @return true if the string is valid, false otherwise
+     */
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+
+            if (c == '(') {
+                stack.push(')');
+            } else if (c == '{') {
+                stack.push('}');
+            } else if (c == '[') {
+                stack.push(']');
+            } else {
+                if (stack.isEmpty() || stack.pop() != c) {
+                    return false;
+                }
+            }
+        }
+
+        if (stack.isEmpty()) {
+            return true;
+        }
+
+        return false;
     }
 }
