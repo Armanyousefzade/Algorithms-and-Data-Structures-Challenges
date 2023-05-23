@@ -242,4 +242,74 @@ public class Main {
 
         return false;
     }
+
+    public int findMin(int[] nums) {
+        return findMin(nums, 0, nums.length - 1);
+    }
+
+    /**
+     * Finds the minimum value in an array of integers.
+     *
+     * @param nums  the array of integers
+     * @return the minimum value in the array
+     */
+    public int findMin(int[] nums, int left, int right) {
+        if (left == right) {
+            return nums[left];
+        }
+
+        int median = (left + right) / 2;
+
+        if (nums[median] > nums[right]) {
+            return findMin(nums, median + 1, right);
+        } else {
+            return findMin(nums, left, median);
+        }
+    }
+
+    /**
+     * Searches for the target element in the given rotated sorted array.
+     *
+     * @param nums   The rotated sorted array.
+     * @param target The target element to search for.
+     * @return The index of the target element if found, or -1 if not found.
+     */
+    public int search(int[] nums, int target) {
+        return search(nums, target, 0, nums.length - 1);
+    }
+
+    /**
+     * Recursive helper method to perform the binary search for the target element in the rotated sorted array.
+     *
+     * @param nums   The rotated sorted array.
+     * @param target The target element to search for.
+     * @param left   The left index of the current search range.
+     * @param right  The right index of the current search range.
+     * @return The index of the target element if found, or -1 if not found.
+     */
+    public int search(int[] nums, int target, int left, int right) {
+        if (left > right) {
+            return -1;
+        }
+
+        int mid = left + (right - left) / 2;
+
+        if (nums[mid] == target) {
+            return mid;
+        }
+
+        if (nums[left] <= nums[mid]) {
+            if (target >= nums[left] && target < nums[mid]) {
+                return search(nums, target, left, mid - 1);
+            } else {
+                return search(nums, target, mid + 1, right);
+            }
+        } else {
+            if (target > nums[mid] && target <= nums[right]) {
+                return search(nums, target, mid + 1, right);
+            } else {
+                return search(nums, target, left, mid - 1);
+            }
+        }
+    }
 }
