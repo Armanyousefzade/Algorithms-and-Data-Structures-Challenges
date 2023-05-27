@@ -333,4 +333,56 @@ public class Main {
 
         return prev;
     }
+
+    /**
+     * Merges two sorted linked lists into a single sorted linked list.
+     *
+     * @param list1 The head of the first sorted linked list.
+     * @param list2 The head of the second sorted linked list.
+     * @return The head of the merged sorted linked list.
+     */
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode();
+        ListNode list3 = dummy;
+        while (list1 != null && list2 != null) {
+            if (list1.val <= list2.val) {
+                list3.next = list1;
+                list1 = list1.next;
+            } else {
+                list3.next = list2;
+                list2 = list2.next;
+            }
+            list3 = list3.next;
+        }
+
+        if (list1 != null) {
+            list3.next = list1;
+        }
+
+        if (list2 != null) {
+            list3.next = list2;
+        }
+
+        return dummy.next;
+    }
+
+    /**
+     * Inverts a binary tree by swapping the left and right children of each node recursively.
+     *
+     * @param root The root of the binary tree to be inverted.
+     * @return The root of the inverted binary tree.
+     */
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) {
+            return root;
+        }
+
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        invertTree(root.right);
+        invertTree(root.left);
+        return root;
+    }
 }
