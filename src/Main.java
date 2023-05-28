@@ -443,4 +443,48 @@ public class Main {
         cur.remove(cur.size() - 1);
         combinationSum(candidates, target, cur, ans, index + 1);
     }
+
+    /**
+     * Counts the number of islands in a 2D grid.
+     *
+     * @param grid The 2D grid represented as a char array.
+     * @return The number of islands in the grid.
+     */
+    public int numIslands(char[][] grid) {
+        int numberOfIslands = 0;
+
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == '1') {
+                    numberOfIslands++;
+                    removeOnes(grid, i, j);
+                }
+            }
+        }
+
+        return numberOfIslands;
+    }
+
+    /**
+     * Recursive helper method to remove connected islands represented by '1' in the grid.
+     *
+     * @param grid The 2D grid represented as a char array.
+     * @param i    The row index of the current element.
+     * @param j    The column index of the current element.
+     */
+    public void removeOnes(char[][] grid, int i, int j) {
+        grid[i][j] = '0';
+        if (i != 0 && grid[i - 1][j] == '1') {
+            removeOnes(grid, i - 1, j);
+        }
+        if (j != 0 && grid[i][j - 1] == '1') {
+            removeOnes(grid, i, j - 1);
+        }
+        if (i != grid.length - 1 && grid[i + 1][j] == '1') {
+            removeOnes(grid, i + 1, j);
+        }
+        if (j != grid[0].length - 1 && grid[i][j + 1] == '1') {
+            removeOnes(grid, i, j + 1);
+        }
+    }
 }
