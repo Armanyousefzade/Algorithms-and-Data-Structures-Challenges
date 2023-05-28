@@ -509,4 +509,42 @@ public class Main {
         memory[n] = climbStairs(n - 1) + climbStairs(n - 2);
         return memory[n];
     }
+
+    int[] memoryRob = new int[101];
+
+    /**
+     * Calculates the maximum amount of money that can be robbed from the given houses.
+     *
+     * @param nums An array representing the amount of money in each house.
+     * @return The maximum amount of money that can be robbed.
+     */
+    public int rob(int[] nums) {
+        Arrays.fill(memoryRob , -1);
+        return rob(nums, nums.length - 1);
+    }
+
+    /**
+     * Recursive helper method to calculate the maximum amount of money that can be robbed from the given houses.
+     *
+     * @param nums An array representing the amount of money in each house.
+     * @param n    The index of the current house.
+     * @return The maximum amount of money that can be robbed.
+     */
+    private int rob(int[] nums, int n) {
+        if (n < 0) {
+            return 0;
+        }
+
+        if (memoryRob[n] != -1) {
+            return memoryRob[n];
+        }
+
+        if (n == 0) {
+            memoryRob[n] = nums[n];
+            return memoryRob[n];
+        }
+
+        memoryRob[n] = Math.max(rob(nums, n - 2) + nums[n], rob(nums, n - 1));
+        return memoryRob[n];
+    }
 }
