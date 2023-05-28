@@ -403,4 +403,44 @@ public class Main {
 
         return Math.max(maxDepth(root.left, depth + 1), maxDepth(root.right, depth + 1));
     }
+
+    /**
+     * Finds all unique combinations in the given candidates that sum up to the target value.
+     *
+     * @param candidates The array of candidates to choose from.
+     * @param target     The target value to be achieved by the combinations.
+     * @return A list of all unique combinations that sum up to the target.
+     */
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> cur = new ArrayList();
+        combinationSum(candidates, target, cur, ans, 0);
+        return ans;
+    }
+
+    /**
+     * Recursive helper method to find combinations that sum up to the target.
+     *
+     * @param candidates The array of candidates to choose from.
+     * @param target     The remaining target value to be achieved by the combinations.
+     * @param cur        The current combination being built.
+     * @param ans        The list of all unique combinations found.
+     * @param index      The index of the candidate to consider in the current recursive call.
+     */
+    public void combinationSum(int[] candidates, int target, List<Integer> cur, List<List<Integer>> ans, int index) {
+        if (target == 0) {
+            ans.add(new ArrayList<>(cur));
+            return;
+        }
+
+        if (target < 0 || index >= candidates.length) {
+            return;
+        }
+
+        cur.add(candidates[index]);
+        combinationSum(candidates, target - candidates[index], cur, ans, index);
+
+        cur.remove(cur.size() - 1);
+        combinationSum(candidates, target, cur, ans, index + 1);
+    }
 }
