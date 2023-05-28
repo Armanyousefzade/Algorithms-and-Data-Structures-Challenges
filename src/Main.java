@@ -487,4 +487,26 @@ public class Main {
             removeOnes(grid, i, j + 1);
         }
     }
+
+    int[] memory = new int[46];
+
+    /**
+     * Calculates the number of distinct ways to climb to the top of the stairs.
+     *
+     * @param n The number of stairs to climb.
+     * @return The number of distinct ways to climb to the top.
+     */
+    public int climbStairs(int n) {
+        if (memory[n] != 0) {
+            return memory[n];
+        }
+
+        if (n <= 2) {
+            memory[n] = n;
+            return memory[n];
+        }
+
+        memory[n] = climbStairs(n - 1) + climbStairs(n - 2);
+        return memory[n];
+    }
 }
