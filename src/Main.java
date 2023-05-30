@@ -519,7 +519,7 @@ public class Main {
      * @return The maximum amount of money that can be robbed.
      */
     public int rob(int[] nums) {
-        Arrays.fill(memoryRob , -1);
+        Arrays.fill(memoryRob, -1);
         return rob(nums, nums.length - 1);
     }
 
@@ -546,5 +546,26 @@ public class Main {
 
         memoryRob[n] = Math.max(rob(nums, n - 2) + nums[n], rob(nums, n - 1));
         return memoryRob[n];
+    }
+
+    /**
+     * Finds the missing number in an array of integers.
+     *
+     * @param nums An array of integers containing n distinct numbers taken from 0, 1, 2, ..., n, where n is the length of the array.
+     * @return The missing number in the array.
+     */
+    public int missingNumber(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+
+        for (int i = 0; i <= nums.length; i++) {
+            set.add(i);
+        }
+
+        for (int num : nums) {
+            set.remove(num);
+        }
+
+        List<Integer> result = new ArrayList<>(set);
+        return result.get(0);
     }
 }
