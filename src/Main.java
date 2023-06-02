@@ -568,4 +568,47 @@ public class Main {
         List<Integer> result = new ArrayList<>(set);
         return result.get(0);
     }
+
+    int[][] storage;
+
+    /**
+     * Calculates the number of unique paths from the top-left corner to the bottom-right corner
+     * in a grid of size m x n.
+     *
+     * @param m The number of rows in the grid.
+     * @param n The number of columns in the grid.
+     * @return The number of unique paths from the top-left corner to the bottom-right corner.
+     */
+    public int uniquePaths(int m, int n) {
+        storage = new int[m][n];
+
+        return uniquePaths(0, 0, m, n);
+    }
+
+    /**
+     * Helper method to calculate the number of unique paths from a given position (i, j)
+     * to the bottom-right corner in a grid of size m x n.
+     *
+     * @param i The current row index.
+     * @param j The current column index.
+     * @param m The number of rows in the grid.
+     * @param n The number of columns in the grid.
+     * @return The number of unique paths from the current position to the bottom-right corner.
+     */
+    private int uniquePaths(int i, int j, int m, int n) {
+        if (i >= m || j >= n) {
+            return 0;
+        }
+
+        if (storage[i][j] != 0) {
+            return storage[i][j];
+        }
+
+        if (i == m - 1 && j == n - 1) {
+            return 1;
+        }
+
+        storage[i][j] = uniquePaths(i, j + 1, m, n) + uniquePaths(i + 1, j, m, n);
+        return storage[i][j];
+    }
 }
