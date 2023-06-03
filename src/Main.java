@@ -611,4 +611,29 @@ public class Main {
         storage[i][j] = uniquePaths(i, j + 1, m, n) + uniquePaths(i + 1, j, m, n);
         return storage[i][j];
     }
+
+    /**
+     * Finds the maximum sum of a subarray in the given array.
+     *
+     * @param nums The input array of integers.
+     * @return The maximum sum of a subarray.
+     */
+    public int maxSubArray(int[] nums) {
+        int right = 0;
+
+        int max = Integer.MIN_VALUE;
+        int sum = 0;
+
+        while (right < nums.length) {
+            sum += nums[right];
+            max = Math.max(max, sum);
+            right++;
+
+            if (sum < 0) {
+                sum = 0;
+            }
+        }
+
+        return max;
+    }
 }
