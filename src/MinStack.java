@@ -84,4 +84,25 @@ class MinStack {
             return search(mid + 1, right, nums, target);
         }
     }
+
+    /**
+     * Determines whether a linked list has a cycle.
+     *
+     * @param head The head node of the linked list.
+     * @return {@code true} if a cycle is present in the linked list, {@code false} otherwise.
+     */
+    public boolean hasCycle(ListNode head) {
+        ListNode current = head;
+
+        while (head != null && head.next != null) {
+            if (current.next == head.next.next) {
+                return true;
+            }
+
+            head = head.next.next;
+            current = current.next;
+        }
+
+        return false;
+    }
 }
