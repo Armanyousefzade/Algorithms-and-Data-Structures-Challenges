@@ -666,4 +666,46 @@ public class Main {
 
         return result.toArray(new int[result.size()][2]);
     }
+
+    /**
+     * Finds the indices of two numbers in the given array that add up to the target value.
+     *
+     * @param numbers The input array of integers.
+     * @param target The target value to find the sum of two numbers.
+     * @return An array of two indices representing the positions of the two numbers that add up to the target value.
+     *         If no such pair is found, returns null.
+     */
+    public int[] twoSum(int[] numbers, int target) {
+        int leftIndex = 0;
+        int rightIndex = 0;
+
+        int leftNumber = 0;
+        int rightNumber = 0;
+
+        while (leftIndex < numbers.length) {
+            leftNumber = numbers[leftIndex];
+
+            rightIndex = leftIndex + 1;
+            while (rightIndex < numbers.length) {
+                rightNumber = numbers[rightIndex];
+
+                if (rightNumber > target - leftNumber) {
+                    break;
+                }
+
+                if (rightNumber == target - leftNumber) {
+                    int[] result = new int[2];
+                    result[0] = leftIndex + 1;
+                    result[1] = rightIndex + 1;
+
+                    return result;
+                }
+
+                rightIndex++;
+            }
+            leftIndex++;
+        }
+
+        return null;
+    }
 }
