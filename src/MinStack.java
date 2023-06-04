@@ -53,4 +53,35 @@ class MinStack {
     public int getMin() {
         return minStack.get(stack.size() - 1);
     }
+
+    public int search(int[] nums, int target) {
+        return search(0, nums.length - 1, nums, target);
+    }
+
+    /**
+     * Performs a binary search to find the target element in the given array.
+     *
+     * @param left  The left index of the search range.
+     * @param right The right index of the search range.
+     * @param nums  The array in which to perform the search.
+     * @param target The target element to find.
+     * @return The index of the target element if found, otherwise -1.
+     */
+    private int search(int left, int right, int[] nums, int target) {
+        if (left > right) {
+            return -1;
+        }
+
+        int mid = (left + right) / 2;
+
+        if (nums[mid] == target) {
+            return mid;
+        }
+
+        if (target < nums[mid]) {
+            return search(left, mid - 1, nums, target);
+        } else {
+            return search(mid + 1, right, nums, target);
+        }
+    }
 }
