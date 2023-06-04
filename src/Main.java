@@ -708,4 +708,46 @@ public class Main {
 
         return null;
     }
+
+    /**
+     * Checks if a string s1 is a substring anagram of another string s2.
+     *
+     * @param s1 The first input string.
+     * @param s2 The second input string.
+     * @return {@code true} if s1 is a substring anagram of s2, {@code false} otherwise.
+     */
+    public boolean checkInclusion(String s1, String s2) {
+        if (s1.length() > s2.length()) {
+            return false;
+        }
+
+        int[] a = new int[26];
+        int[] b = new int[26];
+
+        for (int i = 0; i < s1.length(); i++) {
+            a[s1.charAt(i) - 'a']++;
+            b[s2.charAt(i) - 'a']++;
+        }
+
+        if (Arrays.equals(a, b)) {
+            return true;
+        }
+
+        int windowStart = 1;
+        int windowEnd = s1.length();
+
+        while (windowEnd < s2.length()) {
+            b[s2.charAt(windowStart - 1) - 'a']--;
+            b[s2.charAt(windowEnd) - 'a']++;
+
+            if (Arrays.equals(a, b)) {
+                return true;
+            }
+
+            windowStart++;
+            windowEnd++;
+        }
+
+        return false;
+    }
 }
