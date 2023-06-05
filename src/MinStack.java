@@ -105,4 +105,40 @@ class MinStack {
 
         return false;
     }
+
+    /**
+     * Returns the diameter of a binary tree.
+     *
+     * @param root The root node of the binary tree.
+     * @return The diameter of the binary tree.
+     */
+    int max = 0;
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        findMaxDepth(root);
+
+        return max;
+    }
+
+    /**
+     * Finds the maximum depth of a given node in a binary tree.
+     *
+     * @param node The node for which to find the maximum depth.
+     * @return The maximum depth of the given node.
+     */
+    private int findMaxDepth(TreeNode node) {
+        int leftDepth = 0;
+        int rightDepth = 0;
+
+        if (node.left != null) {
+            leftDepth = findMaxDepth(node.left) + 1;
+        }
+
+        if (node.right != null) {
+            rightDepth = findMaxDepth(node.right) + 1;
+        }
+
+        max = Math.max(max, leftDepth + rightDepth);
+        return Math.max(leftDepth, rightDepth);
+    }
 }
