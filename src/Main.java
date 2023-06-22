@@ -750,4 +750,39 @@ public class Main {
 
         return false;
     }
+
+    /**
+     * Generates all subsets of the given array of integers.
+     *
+     * @param nums the array of integers
+     * @return a list of lists containing all subsets
+     */
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+
+        subsetsRecursive(nums, 0, result, new ArrayList<Integer>());
+
+        return result;
+    }
+
+    /**
+     * Recursively generates subsets of the given array of integers.
+     *
+     * @param nums the array of integers
+     * @param index the current index in the array
+     * @param result the list of subsets generated so far
+     * @param list the current subset being constructed
+     */
+    private void subsetsRecursive(int[] nums, int index, List<List<Integer>> result, List<Integer> list){
+        if(index == nums.length){
+            result.add(list);
+            return;
+        }
+
+        List<Integer> list2 = new ArrayList<>(list);
+        list2.add(nums[index++]);
+
+        subsetsRecursive(nums, index, result, list);
+        subsetsRecursive(nums, index, result, list2);
+    }
 }
