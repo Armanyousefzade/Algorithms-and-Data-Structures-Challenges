@@ -785,4 +785,50 @@ public class Main {
         subsetsRecursive(nums, index, result, list);
         subsetsRecursive(nums, index, result, list2);
     }
+
+    /**
+     * Merges overlapping intervals in a 2D array.
+     *
+     * @param intervals the array of intervals to merge
+     * @return the merged intervals as a 2D array
+     */
+    public int[][] merge(int[][] intervals) {
+        List<int[]> resultList = new ArrayList<>();
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+
+        int[] currentInterval = intervals[0];
+        resultList.add(currentInterval);
+
+        for (int i = 1; i < intervals.length; i++) {
+            if (overlap(currentInterval, intervals[i])) {
+                mergeInterval(currentInterval, intervals[i]);
+            } else {
+                currentInterval = intervals[i];
+                resultList.add(currentInterval);
+            }
+        }
+
+        return resultList.toArray(new int[resultList.size()][2]);
+    }
+
+    /**
+     * Checks if two intervals overlap.
+     *
+     * @param interval1 the first interval
+     * @param interval2 the second interval
+     * @return true if the intervals overlap, false otherwise
+     */
+    public boolean overlap(int[] interval1, int[] interval2) {
+        return interval2[0] <= interval1[1];
+    }
+
+    /**
+     * Merges two intervals into a single interval.
+     *
+     * @param interval1 the first interval (updated with merged result)
+     * @param interval2 the second interval
+     */
+    public void mergeInterval(int[] interval1, int[] interval2) {
+        interval1[1] = Math.max(interval1[1], interval2[1]);
+    }
 }
