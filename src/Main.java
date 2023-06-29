@@ -831,4 +831,46 @@ public class Main {
     public void mergeInterval(int[] interval1, int[] interval2) {
         interval1[1] = Math.max(interval1[1], interval2[1]);
     }
+
+    /**
+     * Rotates the given matrix 90 degrees clockwise.
+     *
+     * @param matrix The matrix to be rotated.
+     */
+    public void rotate(int[][] matrix) {
+        transpose(matrix);
+        horizontalReverse(matrix);
+    }
+
+    /**
+     * Transposes the given matrix.
+     *
+     * @param matrix The matrix to be transposed.
+     */
+    public void transpose(int[][] matrix) {
+        int temp;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < i; j++) {
+                temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+    }
+
+    /**
+     * Reverses the elements of each row in the given matrix horizontally.
+     *
+     * @param matrix The matrix to be horizontally reversed.
+     */
+    public void horizontalReverse(int[][] matrix) {
+        int temp;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length / 2; j++) {
+                temp = matrix[i][j];
+                matrix[i][j] = matrix[i][matrix.length - 1 - j];
+                matrix[i][matrix.length - 1 - j] = temp;
+            }
+        }
+    }
 }
