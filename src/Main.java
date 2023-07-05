@@ -873,4 +873,21 @@ public class Main {
             }
         }
     }
+
+    /**
+     * Determines if it is possible to reach the last index in the given array by jumping from the starting index.
+     *
+     * @param nums An array of non-negative integers representing the maximum jump length from each position.
+     * @return {@code true} if it is possible to reach the last index, {@code false} otherwise.
+     */
+    public boolean canJump(int[] nums) {
+        int goal = nums.length - 1;
+        for (int i = nums.length - 2; i >= 0; i--) {
+            if (i + nums[i] >= goal) {
+                goal = i;
+            }
+        }
+
+        return goal == 0;
+    }
 }
