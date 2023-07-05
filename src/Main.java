@@ -773,8 +773,8 @@ public class Main {
      * @param result the list of subsets generated so far
      * @param list the current subset being constructed
      */
-    private void subsetsRecursive(int[] nums, int index, List<List<Integer>> result, List<Integer> list){
-        if(index == nums.length){
+    private void subsetsRecursive(int[] nums, int index, List<List<Integer>> result, List<Integer> list) {
+        if (index == nums.length) {
             result.add(list);
             return;
         }
@@ -890,4 +890,48 @@ public class Main {
 
         return goal == 0;
     }
+
+    /**
+     * Returns a list of integers representing the elements of a matrix traversed in spiral order.
+     *
+     * @param matrix the input matrix
+     * @return a list of integers in spiral order
+     */
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> result = new ArrayList<>();
+
+        int rb = 0;
+        int re = matrix.length - 1;
+        int cb = 0;
+        int ce = matrix[0].length - 1;
+
+        while (rb <= re && cb <= ce) {
+            for (int i = cb; i <= ce; i++) {
+                result.add(matrix[rb][i]);
+            }
+            rb++;
+
+            for (int j = rb; j <= re; j++) {
+                result.add(matrix[j][ce]);
+            }
+            ce--;
+
+            if (rb <= re) {
+                for (int j = ce; j >= cb; j--) {
+                    result.add(matrix[re][j]);
+                }
+                re--;
+            }
+
+            if (cb <= ce) {
+                for (int j = re; j >= rb; j--) {
+                    result.add(matrix[j][cb]);
+                }
+                cb++;
+            }
+        }
+
+        return result;
+    }
+
 }
