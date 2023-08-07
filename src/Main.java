@@ -934,4 +934,28 @@ public class Main {
         return result;
     }
 
+    /**
+     * Given a list of daily temperatures, returns an array where, for each day, tells you how many days
+     * you would have to wait until a warmer temperature. If there is no future day for which this is possible,
+     * put 0 instead.
+     *
+     * @param temperatures An array of integers representing daily temperatures.
+     * @return An array of integers where the value at index i indicates the number of days you would have to
+     *         wait from day i to get a warmer temperature. If there is no future day for which this is possible,
+     *         the value is 0.
+     */
+    public int[] dailyTemperatures(int[] temperatures) {
+        int[] result = new int[temperatures.length];
+
+        for(int i=0; i<temperatures.length; i++){
+            for(int j=i+1; j<temperatures.length; j++){
+                if(temperatures[j]>temperatures[i]){
+                    result[i]=j-i;
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
 }
