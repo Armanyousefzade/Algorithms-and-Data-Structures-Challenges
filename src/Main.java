@@ -992,4 +992,56 @@ public class Main {
 
         return dummyHead.next;
     }
+
+    /**
+     * Checks if the given string is a palindrome, considering only alphanumeric characters and ignoring cases.
+     *
+     * @param s The string to check for palindrome properties.
+     * @return true if the pruned string is a palindrome, false otherwise.
+     */
+    public boolean isPalindrome2(String s) {
+        String pruned = "";
+
+        for(int i = 0; i < s.length(); i++) {
+            if(isAlphanumeric(s.charAt(i))) {
+                pruned = pruned + s.charAt(i);
+            }
+        }
+
+        pruned = pruned.toLowerCase();
+        String reversed = reverse(pruned);
+
+        return reversed.equals(pruned);
+    }
+
+    /**
+     * Determines if the given character is alphanumeric.
+     *
+     * @param c The character to check.
+     * @return true if the character is alphanumeric, false otherwise.
+     */
+    private boolean isAlphanumeric(char c) {
+        if(('a' <= c && c <= 'z') || ('0' <= c && c <= '9') || ('A' <= c && c <= 'Z')) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Reverses the given string.
+     *
+     * @param s The string to reverse.
+     * @return A new string that is the reverse of the given string.
+     */
+    private String reverse(String s) {
+        String reverse = "";
+
+        for(int i = s.length() - 1; i >= 0; i--) {
+            reverse = reverse + s.charAt(i);
+        }
+
+        return reverse;
+    }
+
 }
