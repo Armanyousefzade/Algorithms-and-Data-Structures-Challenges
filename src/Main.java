@@ -1044,4 +1044,30 @@ public class Main {
         return reverse;
     }
 
+    /**
+     * Merges the given triplets to see if they can form the specified target.
+     *
+     * <p>The function attempts to see if by merging the valid triplets
+     * (i.e., triplets that don't exceed the target in any dimension),
+     * we can obtain the target. A triplet is valid if all its elements
+     * are less than or equal to the corresponding elements of the target.
+     * </p>
+     *
+     * @param triplets An array of triplets. Each triplet is an int array of size 3.
+     * @param target   The target int array of size 3 that we are trying to match by merging triplets.
+     * @return True if by merging the valid triplets we can obtain the target, otherwise False.
+     */
+    public boolean mergeTriplets(int[][] triplets, int[] target) {
+        int[] result = new int[3];
+
+        for(int[] triplet:triplets){
+            if(triplet[0]<=target[0] && triplet[1]<=target[1] && triplet[2]<=target[2]){
+                result[0]=Math.max(triplet[0], result[0]);
+                result[1]=Math.max(triplet[1], result[1]);
+                result[2]=Math.max(triplet[2], result[2]);
+            }
+        }
+
+        return Arrays.equals(result, target);
+    }
 }
