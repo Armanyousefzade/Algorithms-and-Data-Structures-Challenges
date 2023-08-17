@@ -1070,4 +1070,46 @@ public class Main {
 
         return Arrays.equals(result, target);
     }
+
+    /**
+     * Partitions the input string such that each character appears in at most one part.
+     * After concatenating all the parts in order, the resultant string should be same as the input string.
+     *
+     * @param s The input string
+     * @return A list of integers, each representing the size of a partition
+     */
+    public List<Integer> partitionLabels(String s) {
+        List<Integer> result = new ArrayList<>();
+        int[] maxIndices = calculateMaxIndices(s);
+
+        int i=0;
+        int j;
+        int start = i;
+
+        while(i<s.length()){
+            start=i;
+            j= maxIndices[s.charAt(i) - 'a'];
+            while(i<=j){
+                j=Math.max(j, maxIndices[s.charAt(i)-'a']);
+                i++;
+            }
+            result.add(i-start);
+        }
+        return result;
+    }
+
+    /**
+     * Calculates the last occurrence indices of each character in the string.
+     *
+     * @param s The input string
+     * @return An array where the i-th element is the last occurrence of the (i+'a')th character in the string.
+     */
+    private int[] calculateMaxIndices(String s) {
+        int[] maxIndices = new int[26];
+        for(int i=0; i<s.length(); i++){
+            maxIndices[s.charAt(i)-'a'] = i;
+        }
+
+        return maxIndices;
+    }
 }
