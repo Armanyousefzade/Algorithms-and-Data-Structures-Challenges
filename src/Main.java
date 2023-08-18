@@ -2,8 +2,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
@@ -1111,5 +1113,99 @@ public class Main {
         }
 
         return maxIndices;
+    }
+
+    /**
+     * Represents a grid of oranges, where the oranges can be either fresh or rotten.
+     */
+    private int[][] grid;
+
+    /**
+     * Calculates the minimum number of minutes until no fresh orange is left.
+     * If it's impossible to rot all oranges, returns -1.
+     *
+     * @param grid 2D matrix where each cell can have the following values:
+     *             0: empty cell,
+     *             1: cell with a fresh orange,
+     *             2: cell with a rotten orange.
+     * @return minimum number of minutes until no fresh orange is left or -1 if not possible.
+     */
+    public int orangesRotting(int[][] grid) {
+        this.grid = grid;
+        Queue<int[]> q = new LinkedList<>();
+
+        for(int i=0; i<grid.length; i++){
+            for(int j=0; j<grid[0].length; j++){
+                if(grid[i][j]==2){
+                    q.add(new int[]{i,j});
+                }
+            }
+        }
+
+        int minutes=0;
+        int rottenNumberInPreviousMinute;
+
+        while(!q.isEmpty()){
+            rottenNumberInPreviousMinute=q.size();
+
+            for(int i=0; i<rottenNumberInPreviousMinute; i++){
+                int[] rotten = q.poll();
+                if(isValid(rotten[0]-1, rotten[1])){
+                    grid[rotten[0]-1][rotten[1]]=2;
+                    q.add(new int[]{rotten[0]-1, rotten[1]});
+                }
+
+                if(isValid(rotten[0]+1, rotten[1])){
+                    grid[rotten[0]+1][rotten[1]]=2;
+                    q.add(new int[]{rotten[0]+1, rotten[1]});
+                }
+
+                if(isValid(rotten[0], rotten[1]-1)){
+                    grid[rotten[0]][rotten[1]-1]=2;
+                    q.add(new int[]{rotten[0], rotten[1]-1});
+                }
+
+                if(isValid(rotten[0], rotten[1]+1)){
+                    grid[rotten[0]][rotten[1]+1]=2;
+                    q.add(new int[]{rotten[0], rotten[1]+1});
+                }
+            }
+            minutes++;
+        }
+
+        if(isLeftAnyNonRotten()){
+            return -1;
+        }
+        return Math.max(0, minutes-1);
+    }
+
+    /**
+     * Checks if the given coordinates are within grid boundaries and contain a fresh orange.
+     *
+     * @param i Row index.
+     * @param j Column index.
+     * @return true if the cell contains a fresh orange and is within the grid boundaries; otherwise, false.
+     */
+    private boolean isValid(int i, int j) {
+        if(i<0 || j<0 || i>=grid.length || j>=grid[0].length || grid[i][j]!=1){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Determines if there are any fresh oranges left in the grid.
+     *
+     * @return true if there are fresh oranges left, false otherwise.
+     */
+    private boolean isLeftAnyNonRotten() {
+        for(int i=0; i<grid.length; i++){
+            for(int j=0; j<grid[0].length; j++){
+                if(grid[i][j]==1){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
