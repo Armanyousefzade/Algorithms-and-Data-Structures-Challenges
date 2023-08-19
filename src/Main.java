@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -1208,4 +1209,43 @@ public class Main {
         }
         return false;
     }
+
+    /**
+     * Computes the weight of the last remaining stone after a series of stone smashing operations.
+     * <p>
+     * Given an array of stone weights, the method works as follows:
+     * 1. Sort the stones in ascending order.
+     * 2. Take the heaviest two stones. If they are of different weights, add the difference back to the list.
+     * 3. Repeat the above steps until there is only one stone left or no stones left.
+     * </p>
+     *
+     * @param stones An array of integers representing the weights of the stones.
+     * @return The weight of the last remaining stone. If no stones remain, returns 0.
+     */
+    public int lastStoneWeight(int[] stones) {
+        List<Integer> stonesList = new ArrayList<>();
+
+        for (int i : stones) {
+            stonesList.add(i);
+        }
+
+        while (stonesList.size() > 1) {
+            Collections.sort(stonesList);
+            int heaviest = stonesList.get(stonesList.size() - 1);
+            int secondHeaviest = stonesList.get(stonesList.size() - 2);
+            stonesList.remove(stonesList.size() - 1);
+            stonesList.remove(stonesList.size() - 1);
+
+            if (secondHeaviest < heaviest) {
+                stonesList.add(heaviest - secondHeaviest);
+            }
+        }
+
+        if (stonesList.size() == 1) {
+            return stonesList.get(0);
+        }
+
+        return 0;
+    }
+
 }
