@@ -950,10 +950,10 @@ public class Main {
     public int[] dailyTemperatures(int[] temperatures) {
         int[] result = new int[temperatures.length];
 
-        for(int i=0; i<temperatures.length; i++){
-            for(int j=i+1; j<temperatures.length; j++){
-                if(temperatures[j]>temperatures[i]){
-                    result[i]=j-i;
+        for (int i = 0; i < temperatures.length; i++) {
+            for (int j = i + 1; j < temperatures.length; j++) {
+                if (temperatures[j] > temperatures[i]) {
+                    result[i] = j - i;
                     break;
                 }
             }
@@ -1005,8 +1005,8 @@ public class Main {
     public boolean isPalindrome2(String s) {
         String pruned = "";
 
-        for(int i = 0; i < s.length(); i++) {
-            if(isAlphanumeric(s.charAt(i))) {
+        for (int i = 0; i < s.length(); i++) {
+            if (isAlphanumeric(s.charAt(i))) {
                 pruned = pruned + s.charAt(i);
             }
         }
@@ -1024,7 +1024,7 @@ public class Main {
      * @return true if the character is alphanumeric, false otherwise.
      */
     private boolean isAlphanumeric(char c) {
-        if(('a' <= c && c <= 'z') || ('0' <= c && c <= '9') || ('A' <= c && c <= 'Z')) {
+        if (('a' <= c && c <= 'z') || ('0' <= c && c <= '9') || ('A' <= c && c <= 'Z')) {
             return true;
         }
 
@@ -1040,7 +1040,7 @@ public class Main {
     private String reverse(String s) {
         String reverse = "";
 
-        for(int i = s.length() - 1; i >= 0; i--) {
+        for (int i = s.length() - 1; i >= 0; i--) {
             reverse = reverse + s.charAt(i);
         }
 
@@ -1063,11 +1063,11 @@ public class Main {
     public boolean mergeTriplets(int[][] triplets, int[] target) {
         int[] result = new int[3];
 
-        for(int[] triplet:triplets){
-            if(triplet[0]<=target[0] && triplet[1]<=target[1] && triplet[2]<=target[2]){
-                result[0]=Math.max(triplet[0], result[0]);
-                result[1]=Math.max(triplet[1], result[1]);
-                result[2]=Math.max(triplet[2], result[2]);
+        for (int[] triplet : triplets) {
+            if (triplet[0] <= target[0] && triplet[1] <= target[1] && triplet[2] <= target[2]) {
+                result[0] = Math.max(triplet[0], result[0]);
+                result[1] = Math.max(triplet[1], result[1]);
+                result[2] = Math.max(triplet[2], result[2]);
             }
         }
 
@@ -1085,18 +1085,18 @@ public class Main {
         List<Integer> result = new ArrayList<>();
         int[] maxIndices = calculateMaxIndices(s);
 
-        int i=0;
+        int i = 0;
         int j;
         int start = i;
 
-        while(i<s.length()){
-            start=i;
-            j= maxIndices[s.charAt(i) - 'a'];
-            while(i<=j){
-                j=Math.max(j, maxIndices[s.charAt(i)-'a']);
+        while (i < s.length()) {
+            start = i;
+            j = maxIndices[s.charAt(i) - 'a'];
+            while (i <= j) {
+                j = Math.max(j, maxIndices[s.charAt(i) - 'a']);
                 i++;
             }
-            result.add(i-start);
+            result.add(i - start);
         }
         return result;
     }
@@ -1109,8 +1109,8 @@ public class Main {
      */
     private int[] calculateMaxIndices(String s) {
         int[] maxIndices = new int[26];
-        for(int i=0; i<s.length(); i++){
-            maxIndices[s.charAt(i)-'a'] = i;
+        for (int i = 0; i < s.length(); i++) {
+            maxIndices[s.charAt(i) - 'a'] = i;
         }
 
         return maxIndices;
@@ -1135,49 +1135,49 @@ public class Main {
         this.grid = grid;
         Queue<int[]> q = new LinkedList<>();
 
-        for(int i=0; i<grid.length; i++){
-            for(int j=0; j<grid[0].length; j++){
-                if(grid[i][j]==2){
-                    q.add(new int[]{i,j});
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 2) {
+                    q.add(new int[] {i, j});
                 }
             }
         }
 
-        int minutes=0;
+        int minutes = 0;
         int rottenNumberInPreviousMinute;
 
-        while(!q.isEmpty()){
-            rottenNumberInPreviousMinute=q.size();
+        while (!q.isEmpty()) {
+            rottenNumberInPreviousMinute = q.size();
 
-            for(int i=0; i<rottenNumberInPreviousMinute; i++){
+            for (int i = 0; i < rottenNumberInPreviousMinute; i++) {
                 int[] rotten = q.poll();
-                if(isValid(rotten[0]-1, rotten[1])){
-                    grid[rotten[0]-1][rotten[1]]=2;
-                    q.add(new int[]{rotten[0]-1, rotten[1]});
+                if (isValid(rotten[0] - 1, rotten[1])) {
+                    grid[rotten[0] - 1][rotten[1]] = 2;
+                    q.add(new int[] {rotten[0] - 1, rotten[1]});
                 }
 
-                if(isValid(rotten[0]+1, rotten[1])){
-                    grid[rotten[0]+1][rotten[1]]=2;
-                    q.add(new int[]{rotten[0]+1, rotten[1]});
+                if (isValid(rotten[0] + 1, rotten[1])) {
+                    grid[rotten[0] + 1][rotten[1]] = 2;
+                    q.add(new int[] {rotten[0] + 1, rotten[1]});
                 }
 
-                if(isValid(rotten[0], rotten[1]-1)){
-                    grid[rotten[0]][rotten[1]-1]=2;
-                    q.add(new int[]{rotten[0], rotten[1]-1});
+                if (isValid(rotten[0], rotten[1] - 1)) {
+                    grid[rotten[0]][rotten[1] - 1] = 2;
+                    q.add(new int[] {rotten[0], rotten[1] - 1});
                 }
 
-                if(isValid(rotten[0], rotten[1]+1)){
-                    grid[rotten[0]][rotten[1]+1]=2;
-                    q.add(new int[]{rotten[0], rotten[1]+1});
+                if (isValid(rotten[0], rotten[1] + 1)) {
+                    grid[rotten[0]][rotten[1] + 1] = 2;
+                    q.add(new int[] {rotten[0], rotten[1] + 1});
                 }
             }
             minutes++;
         }
 
-        if(isLeftAnyNonRotten()){
+        if (isLeftAnyNonRotten()) {
             return -1;
         }
-        return Math.max(0, minutes-1);
+        return Math.max(0, minutes - 1);
     }
 
     /**
@@ -1188,7 +1188,7 @@ public class Main {
      * @return true if the cell contains a fresh orange and is within the grid boundaries; otherwise, false.
      */
     private boolean isValid(int i, int j) {
-        if(i<0 || j<0 || i>=grid.length || j>=grid[0].length || grid[i][j]!=1){
+        if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] != 1) {
             return false;
         }
         return true;
@@ -1200,9 +1200,9 @@ public class Main {
      * @return true if there are fresh oranges left, false otherwise.
      */
     private boolean isLeftAnyNonRotten() {
-        for(int i=0; i<grid.length; i++){
-            for(int j=0; j<grid[0].length; j++){
-                if(grid[i][j]==1){
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) {
                     return true;
                 }
             }
