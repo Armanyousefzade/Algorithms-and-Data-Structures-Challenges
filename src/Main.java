@@ -1248,4 +1248,41 @@ public class Main {
         return 0;
     }
 
+    /**
+     * Returns all unique triplets in the array which gives the sum of zero.
+     *
+     * <p>The method does not include duplicate triplets in the output. The input array
+     * is sorted first to ease the process of finding triplets and removing duplicates.
+     *
+     * @param nums An array of integers.
+     * @return A list of lists containing all unique triplets that sum up to zero.
+     */
+    public List<List<Integer>> threeSum2(int[] nums) {
+        Set<List<Integer>> res = new HashSet<>();
+
+        Arrays.sort(nums);
+
+        int i = 0;
+        int j;
+        int k = nums.length - 1;
+
+        while(i < nums.length - 2) {
+            j = i + 1;
+            k = nums.length - 1;
+            while(j < k) {
+                if(nums[i] + nums[j] + nums[k] == 0) {
+                    res.add(Arrays.asList(new Integer[]{nums[i], nums[j], nums[k]}));
+                    j++;
+                    k--;
+                } else if (nums[i] + nums[j] + nums[k] > 0) {
+                    k--;
+                } else {
+                    j++;
+                }
+            }
+            i++;
+        }
+
+        return new ArrayList<>(res);
+    }
 }
