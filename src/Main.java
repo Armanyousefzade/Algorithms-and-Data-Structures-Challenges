@@ -1266,12 +1266,12 @@ public class Main {
         int j;
         int k = nums.length - 1;
 
-        while(i < nums.length - 2) {
+        while (i < nums.length - 2) {
             j = i + 1;
             k = nums.length - 1;
-            while(j < k) {
-                if(nums[i] + nums[j] + nums[k] == 0) {
-                    res.add(Arrays.asList(new Integer[]{nums[i], nums[j], nums[k]}));
+            while (j < k) {
+                if (nums[i] + nums[j] + nums[k] == 0) {
+                    res.add(Arrays.asList(new Integer[] {nums[i], nums[j], nums[k]}));
                     j++;
                     k--;
                 } else if (nums[i] + nums[j] + nums[k] > 0) {
@@ -1284,5 +1284,82 @@ public class Main {
         }
 
         return new ArrayList<>(res);
+    }
+
+    int max = 0;
+    int length1;
+    int length2;
+    int[][] grid2;
+
+    /**
+     * Returns the maximum area of an island in the given 2D grid.
+     * Each cell in the grid is either a 0 (indicating water) or a 1 (indicating land).
+     * Adjacent cells with value 1 are considered part of the same island.
+     *
+     * @param grid The 2D matrix representation of the map containing 0s (water) and 1s (land).
+     * @return The maximum area of an island in the given grid. If no islands are present, returns 0.
+     */
+    public int maxAreaOfIsland(int[][] grid) {
+        length1 = grid.length;
+        length2 = grid[0].length;
+        this.grid = grid;
+
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) {
+                    recursive(i, j, 0);
+                }
+            }
+        }
+
+        return max;
+    }
+
+    /**
+     * Recursively explores the given cell and its neighbors to calculate the area of the island.
+     *
+     * @param i The row index of the current cell.
+     * @param j The column index of the current cell.
+     * @param counter The current count of land cells for the island.
+     * @return The total count of land cells for the island after exploration.
+     */
+    private int recursive(int i, int j, int counter) {
+        if (grid2[i][j] == 1) {
+            counter++;
+            grid2[i][j] = 2;
+
+            if (isValidCell(i + 1, j)) {
+                counter = recursive(i + 1, j, counter);
+            }
+
+            if (isValidCell(i, j + 1)) {
+                counter = recursive(i, j + 1, counter);
+            }
+
+            if (isValidCell(i - 1, j)) {
+                counter = recursive(i - 1, j, counter);
+            }
+
+            if (isValidCell(i, j - 1)) {
+                counter = recursive(i, j - 1, counter);
+            }
+        }
+
+        max = Math.max(max, counter);
+        return counter;
+    }
+
+    /**
+     * Determines if a given cell is valid for exploration.
+     *
+     * @param i The row index of the cell.
+     * @param j The column index of the cell.
+     * @return true if the cell is valid for exploration, false otherwise.
+     */
+    private boolean isValidCell(int i, int j) {
+        if (i < 0 || i > length1 - 1 || j < 0 || j > length2 - 1 || grid2[i][j] != 1) {
+            return false;
+        }
+        return true;
     }
 }
