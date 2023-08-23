@@ -1362,4 +1362,40 @@ public class Main {
         }
         return true;
     }
+
+    /**
+     * Checks if a given binary tree is height-balanced.
+     *
+     * A height-balanced binary tree is defined as a binary tree in which the depth of
+     * the two subtrees of every node never differ by more than 1.
+     *
+     * @param root The root node of the binary tree.
+     * @return true if the tree is balanced, otherwise false.
+     */
+    public boolean isBalanced(TreeNode root) {
+        return !(isBalancedrecursive(root) == -1);
+    }
+
+    /**
+     * Recursively checks if a node and its subtrees are balanced.
+     *
+     * This method returns the height of the node if it is balanced, or -1 if it or
+     * any of its subtrees are unbalanced.
+     *
+     * @param node The node to check for balance.
+     * @return The height of the node if balanced, otherwise -1.
+     */
+    public int isBalancedrecursive(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+
+        int left = isBalancedrecursive(node.left);
+        int right = isBalancedrecursive(node.right);
+        if (left == -1 || right == -1 || Math.abs(left - right) > 1) {
+            return -1;
+        }
+
+        return Math.max(left, right) + 1;
+    }
 }
