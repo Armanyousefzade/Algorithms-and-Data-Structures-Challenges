@@ -1398,4 +1398,66 @@ public class Main {
 
         return Math.max(left, right) + 1;
     }
+
+    class Node {
+        public int val;
+        public List<Node> neighbors;
+        public Node() {
+            val = 0;
+            neighbors = new ArrayList<Node>();
+        }
+        public Node(int _val) {
+            val = _val;
+            neighbors = new ArrayList<Node>();
+        }
+        public Node(int _val, ArrayList<Node> _neighbors) {
+            val = _val;
+            neighbors = _neighbors;
+        }
+    }
+
+    /**
+     * Map to keep track of nodes already seen/cloned.
+     */
+    Map<Integer, Node> seen;
+
+    /**
+     * Clones the entire graph given a starting node.
+     *
+     * @param node The starting node of the graph to clone.
+     * @return The starting node of the cloned graph or null if the given node is null.
+     */
+    public Node cloneGraph(Node node) {
+        if(node == null) {
+            return null;
+        }
+
+        seen = new HashMap<>();
+        return cloneNode(node);
+    }
+
+    /**
+     * Recursively clones the given node and its neighbors.
+     *
+     * @param node The node to be cloned.
+     * @return The cloned node.
+     */
+    private Node cloneNode(Node node) {
+        ArrayList<Node> clonedneighbors = new ArrayList<Node>();
+        Node clonedNode = new Node(node.val, clonedneighbors);
+        seen.put(node.val, clonedNode);
+
+        List<Node> neighbors = node.neighbors;
+        for(Node neighbor : neighbors) {
+            Node clonedNeighbor = seen.get(neighbor.val);
+            if(clonedNeighbor == null) {
+                clonedNeighbor = cloneNode(neighbor);
+            }
+            clonedneighbors.add(clonedNeighbor);
+        }
+
+        clonedNode.neighbors = clonedneighbors;
+
+        return clonedNode;
+    }
 }
