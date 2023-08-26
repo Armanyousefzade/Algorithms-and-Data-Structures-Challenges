@@ -1402,14 +1402,17 @@ public class Main {
     class Node {
         public int val;
         public List<Node> neighbors;
+
         public Node() {
             val = 0;
             neighbors = new ArrayList<Node>();
         }
+
         public Node(int _val) {
             val = _val;
             neighbors = new ArrayList<Node>();
         }
+
         public Node(int _val, ArrayList<Node> _neighbors) {
             val = _val;
             neighbors = _neighbors;
@@ -1428,7 +1431,7 @@ public class Main {
      * @return The starting node of the cloned graph or null if the given node is null.
      */
     public Node cloneGraph(Node node) {
-        if(node == null) {
+        if (node == null) {
             return null;
         }
 
@@ -1448,9 +1451,9 @@ public class Main {
         seen.put(node.val, clonedNode);
 
         List<Node> neighbors = node.neighbors;
-        for(Node neighbor : neighbors) {
+        for (Node neighbor : neighbors) {
             Node clonedNeighbor = seen.get(neighbor.val);
-            if(clonedNeighbor == null) {
+            if (clonedNeighbor == null) {
                 clonedNeighbor = cloneNode(neighbor);
             }
             clonedneighbors.add(clonedNeighbor);
@@ -1459,5 +1462,50 @@ public class Main {
         clonedNode.neighbors = clonedneighbors;
 
         return clonedNode;
+    }
+
+    private TreeNode result;
+
+    /**
+     * Finds the lowest common ancestor (LCA) of two nodes in a binary tree.
+     *
+     * @param root The root node of the binary tree.
+     * @param p    The first node to find the LCA for.
+     * @param q    The second node to find the LCA for.
+     * @return The lowest common ancestor node of p and q.
+     */
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        recursiveHelper(root, p, q);
+        return result;
+    }
+
+    /**
+     * Recursively explores the descendants of the current node and checks
+     * if the two target nodes are present in its descendants. If both nodes
+     * are found as descendants of the current node and result has not been set,
+     * the current node is set as the result.
+     *
+     * @param root The current root node being checked.
+     * @param p    The first target node.
+     * @param q    The second target node.
+     * @return A set containing all descendants of the current root node.
+     */
+    public Set<TreeNode> recursiveHelper(TreeNode root, TreeNode p, TreeNode q) {
+        Set<TreeNode> descendants = new HashSet<>();
+        descendants.add(root);
+
+        if (root.left != null) {
+            descendants.addAll(recursiveHelper(root.left, p, q));
+        }
+
+        if (root.right != null) {
+            descendants.addAll(recursiveHelper(root.right, p, q));
+        }
+
+        if (result == null && descendants.contains(p) && descendants.contains(q)) {
+            result = root;
+        }
+
+        return descendants;
     }
 }
